@@ -1,0 +1,14 @@
+admin 
+salida
+logout
+http://localhost:8080/consolas2/admin_controller/logout
+
+
+
+usuario datos
+http://localhost:8080/consolas2/usuario_controller/all
+
+
+
+funcion usuarios OK.
+insert_usuario()
