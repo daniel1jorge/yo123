@@ -38,9 +38,11 @@
                 $this->load->view('adminlte/admin_header.php');
                 $this->load->view('adminlte/admin_header2', $dat);
                 $this->load->view('adminlte/admin_asider', $dat);
-                $this->load->view('adminlte/admin_contenido', $dat);
-                //$this->load->view('adminlte/admin_foother');
 
+                $this->load->view('adminlte/admin_contenido', $dat);
+                $this->load->view('adminlte/admin_tab_contenido');
+                //$data['usuario'] =get_all_usuarios();
+                
              } elseif ($dat['categoria'] == 1){
                 //usuario Estandar
                     echo "estandar";
@@ -48,9 +50,10 @@
                 $data['titulo'] =('Ingreso de usuario');
                 $this->load->view('visitante/w_header', $data);
                 $this->load->view('visitante/w_navegacion');  
-                
-                
-                $this->load->view('visitante/w_footer'); 
+                $this->load->view('adminlte/admin_tab_contenido', $data);
+
+                //$this->load->view('adminlte/admin_all_users', $data);    
+                //$this->load->view('visitante/w_footer'); 
      
             }
 
@@ -58,7 +61,8 @@
 
         public function get_all_usuarios()
         {
-            $data['usuario'] = $this->m_usuario->get_all_users();
+            $data['usuario'] = $this->m_usuario->get_usuarios();
+            //return $data;
             $this->load->view('adminlte/admin_all_users', $data);
 
         }

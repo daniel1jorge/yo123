@@ -1,3 +1,5 @@
+		
+<section>
 		<div class="well">
 			<h1>Todos los Usuarios</h1>
 		</div>	
@@ -31,3 +33,4 @@
 			</tbody>
 		</table>	            
 		<div>
+</section>

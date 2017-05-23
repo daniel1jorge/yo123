@@ -47,7 +47,7 @@ Class M_usuario extends CI_Model
     */
     function update_usuario($id){
 
-        $query = $this->db->get_where('usuario', array('id' => $id),1);
+        $query = $this->db->get_where('usuarios', array('id' => $id),1);
         
         if($query->num_rows() == 1) {
             return $query;
@@ -101,7 +101,7 @@ Class M_usuario extends CI_Model
         }
     }
 
-    public function get_all_users()
+    public function get_usuarios()
     {
         $usuario = $this->db->get('usuarios');
         return $usuario;

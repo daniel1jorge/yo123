@@ -11,14 +11,14 @@
         <div class="pull-left info">
           <p><?php echo ucfirst($nombre) ?> <?php echo ucfirst($apellido) ?></p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> En Linea</a>
         </div>
       </div>
 
       <!-- search form (Optional) -->
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <input type="text" name="q" class="form-control" placeholder="Busqueda...">
               <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -31,21 +31,54 @@
       <ul class="sidebar-menu">
         <li class="header">Operaciones</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Usuarios</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+        
+        <!-- usuarios -->
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Usuarios</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Lista Todos</a></li>
+            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Lista Administradores</a></li>
           </ul>
         </li>
+        <!-- FIN - usuarios -->
+   
+        <!-- Productos -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Productos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Listar Todos</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Categorias</a></li>
+          </ul>
+        </li>
+        <!-- FIN - Productos -->
+        <!-- Ventas -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>Productos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Ventas</a></li>
+            <li><a href="#">Ventas por usuario</a></li>
+            <li><a href="#">Estadistica</a></li>
+          </ul>
+        </li>
+        <!-- FIN - Ventas -->
       </ul>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
+
+
   </aside>

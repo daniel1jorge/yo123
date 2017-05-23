@@ -36,7 +36,7 @@
 								<!--Formulario de logueo-->
 	            				<div id="login-form"  class="account-wall" role="form" style="display: block;">
 									<?php echo validation_errors(); ?>
-		            				<?php echo form_open('logueo_user', ['class' => 'form-signin', 'role' => 'form']); ?>
+		            				<?php echo form_open('ingreso', ['class' => 'form-signin', 'role' => 'form']); ?>
 		            				<?php echo form_input(['type' => 'email', 'name' => 'email','id' => 'email', 'class' => 'form-control','placeholder' => 'correo@ejemplo.com', 'required'=>'required', 'autofocus'=>'autofocus']); ?>
 			                		<br>
 			                		<?php echo form_input(['type' => 'password','name' => 'pass', 'id' => 'pass', 'class' => 'form-control','placeholder' => 'Contraseña', 'required'=>'required']); ?>
