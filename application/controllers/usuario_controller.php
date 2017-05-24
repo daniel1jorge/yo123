@@ -50,7 +50,7 @@
                 $data['titulo'] =('Ingreso de usuario');
                 $this->load->view('visitante/w_header', $data);
                 $this->load->view('visitante/w_navegacion');  
-                $this->load->view('adminlte/admin_tab_contenido', $data);
+                //$this->load->view('adminlte/admin_tab_contenido', $data);
 
                 //$this->load->view('adminlte/admin_all_users', $data);    
                 //$this->load->view('visitante/w_footer'); 
