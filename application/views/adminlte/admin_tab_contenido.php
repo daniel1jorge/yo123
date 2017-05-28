@@ -78,5 +78,3 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- llamada al pie de pagina -->
-<?php $this->load->view('adminlte/admin_foother'); ?>

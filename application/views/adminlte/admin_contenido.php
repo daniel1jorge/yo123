@@ -16,13 +16,6 @@
     </section>
 
     <!-- Main content -->
-    <section>
       
-    <a href="<?php echo base_url(); ?> ">dlfkdlfklfkd</a>
-    
-
-    
-    </section>
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

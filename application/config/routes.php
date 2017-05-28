@@ -47,12 +47,19 @@ $route['default_controller'] = "principal";
 $route['ingreso'] = "verifico_controller";
 // Registro de usuario
 $route['registro_user'] = "usuario_controller/insert_usuario";
+$route['registro_admin'] = "usuario_controller/insert_usuario_admin";
 // Registro de usuario
-$route['usuarios'] = "usuario_controller/get_all_usuarios";
+$route['get_usuarios'] = "usuario_controller/mostrar_usuarios/get_all_usuarios";
+$route['get_admin'] = "usuario_controller/mostrar_usuarios/get_all_admin";
+$route['get_desabilitados'] = "usuario_controller/mostrar_usuarios/get_all_desabilitados";
+
 // Verifico user  y pass
 //$route['verifico'] = "verifico_controller";
 //Logueo correcto voy al Panel Principal
 //$route['panel'] = "back/panel_controller";
+
+// Catalogo
+$route['catalogo'] = "principal/catalogo";
 $route['usuario'] = "usuario_controller";
 //Cierro sesión
 $route['logout'] = 'usuario_controller/logout';
@@ -61,7 +68,9 @@ $route['404_override'] = '';
 //views a los datos de los socios
 //$route['datos'] = 'back/socio_controller/all';
 //views form insert datos
-//$route['insert'] = 'usuario_controller/form_insert';
+
+//ADMINISTRADOR
+$route['insert'] = 'usuario_controller/form_insert';
 //views form insert datos
 //$route['registro'] = 'back/socio_controller/insert_socio';
 /**
@@ -69,8 +78,8 @@ $route['404_override'] = '';
 *
 */
 //views a editar socio y muestra los datos del socio a editar
-$route['user_edit/(:num)'] = "back/socio_controller/edit/$1";
+$route['user_edit/(:num)'] = "usuario_controller/edit/$1";
 //Envia los nuevos datos del socio modificado
-$route['user_up/(:num)'] = "back/socio_controller/editar_socio/$1";
+$route['user_up/(:num)'] = "usuario_controller/editar_/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -5,6 +5,8 @@ class Productos_controller extends CI_Controller {
 		parent::__construct();
 		$this->load->model('m_productos');
 		$this->load->helper('url');
+		$this->load->library('helper');
+
 		
 
 	}
@@ -40,21 +42,22 @@ class Productos_controller extends CI_Controller {
 		$this->load->library('pagination'); //cargamos la libreria de paginacion
 		$this->load->library('table'); //cargamos la libreria para el manejo de tablas
 
-		$config['total_rows'] = $this->m_productos->get_productos_cantidad();  //llamo a una funcion del modelo que me retorna la cantidad de usuarios que tengo en la tabla usuario.
+		$config['total_rows'] = $this->m_productos->get_productos_cantidad();  //llamo a una funcion del modelo que me retorna la cantidad de productos que tengo en la tabla.
         $config['per_page'] = '5'; //cantidad de filas a mostrar por pagina
  
         $this->pagination->initialize($config); // le paso el vector con mis configuraciones al paginador
          
-        //llamo a la funcion get_usuarios que me retorna el resultado de la consulta SQL con los datos.
+        //llamo a la funcion get_productos que me retorna el resultado de la consulta SQL con los datos.
         $data['results'] = $this->m_productos->get_productos($config['per_page'],$this->uri->segment(3));
    
-        //obtengo los usuarios ordenados descendientemente por el id
-        $data['usuario'] = $this->m_productos->get_productos_desc('id'); 
+        //obtengo los productos ordenados descendientemente por el id
+        //$data['productos'] = $this->m_productos->get_productos_desc('id'); 
  
         //$this->load->view('usuario_index',$data); //cargo la vista usuario_index y le paso el vector
-         
-			$this->load->view('back/producto/producto_views',array_merge($data,$dat));
-			$this->load->view('partes/footer_views');
+         	
+         	// Muestra la tabla de productos.
+			$this->load->view('back/producto/producto_views',$data);//array_merge($data,$dat));
+			//$this->load->view('partes/footer_views');
 		}else{
 			redirect('ingreso', 'refresh');
 		}

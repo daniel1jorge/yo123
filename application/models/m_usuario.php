@@ -64,7 +64,7 @@ Class M_usuario extends CI_Model
     */
     function set_usuario($id, $data){
         $this->db->where('id', $id);
-        $query = $this->db->update('usuario', $data);
+        $query = $this->db->update('usuarios', $data);
         if($query) {
             return TRUE;
         } else {
@@ -107,6 +107,48 @@ Class M_usuario extends CI_Model
         return $usuario;
 
     }
+
+    // Todos los administradores.
+    public function get_admin()
+    {   
+        $this->db->where('categoria','2');
+        $query = $this->db->get('usuarios');
+        return $query;
+
+    }
+
+    // Todos los usuarios desabilitados.
+    public function get_estado()
+    {   
+        $this->db->where('estado','2');
+        $query = $this->db->get('usuarios');
+        return $query;
+
+    }
+
+    /*
+
+    function get_categoria(){
+        $data = array();
+        $data['']='Seleccione una opción';
+
+        if ($this->db->field_exists('habilitado', $this->tabla)) $this->dbu->where('habilitado', 'SI');
+         $this->db->select("$this->pk as id, apellido, nombre");
+        if (is_null($order))$this->db->order_by($this->pk); else $this->db->order_by($order);
+        $query = $this->db->get($this->tabla);
+
+        foreach($query->result() as $row){
+        $data[$row->id]= ucwords(strtolower($row->apellido.' '.$row->nombre));
+
+        $sql = "select * from categoria";
+        $res = $this->db->query($sql);
+        if($res->num_rows() > 0){
+            return $res->result_array();
+        }else{
+            return false;
+        }
+}
+        */
 
 }
 /* End of file m_usuario.php */

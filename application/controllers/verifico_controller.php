@@ -33,13 +33,14 @@ class Verifico_controller extends CI_Controller {
         $this->form_validation->set_rules('email', 'Email', 'required','trim|required|xss_clean');
         $this->form_validation->set_rules('pass', 'Pass', 'trim|required|xss_clean|callback_check_database');
 
-
- 
         if($this->form_validation->run() == FALSE)
         {
             //Field validation failed.  User redirected to login page
             // vuelve al logueo de pagina
             $data['titulo'] =('Ingreso de usuario');
+            $data['direccion']= "ingreso";
+            $data['accion']= "Ingresar";
+            $data['user_logueo']= 'Para compras debe estar logueado';
             $this->load->view('visitante/w_header', $data);
             $this->load->view('visitante/w_navegacion');  
             $this->load->view('ingreso');

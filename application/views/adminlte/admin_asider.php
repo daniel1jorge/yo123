@@ -6,7 +6,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php base_url(); ?> assets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url(); ?>assets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ucfirst($nombre) ?> <?php echo ucfirst($apellido) ?></p>
@@ -41,8 +41,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Lista Todos</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Lista Administradores</a></li>
+            <li><a href="<?php echo base_url('get_usuarios'); ?>"><i class="fa fa-circle-o"></i> Lista Todos</a></li>
+            <li><a href="<?php echo base_url('get_admin'); ?>"><i class="fa fa-circle-o"></i> Lista Administradores</a></li>
+            <li><a href="<?php echo base_url('get_desabilitados'); ?>"><i class="fa fa-circle-o"></i> Lista desabilitados</a></li>
           </ul>
         </li>
         <!-- FIN - usuarios -->

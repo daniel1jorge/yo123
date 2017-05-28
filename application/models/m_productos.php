@@ -3,6 +3,7 @@ class M_productos extends CI_Model {
 	function __construct()
      {
           parent::__construct();
+
      }
 
      /**

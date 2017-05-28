@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+session_start();
 class Principal extends CI_Controller {
 
 
@@ -35,18 +35,21 @@ class Principal extends CI_Controller {
 	 */
 	public function index()
 	{
-		 $data['titulo'] =('Principal - Venta de Consolas y juegos');
+		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
+		//echo "Usuario: ", $data['nombre'], $data['categoria'];
+		$data['titulo'] =('Principal - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion');
 		$this->load->view('visitante/w_carrusel');
 		$this->load->view('visitante/w_principal');
-		$this->load->view('visitante/w_footer');
-
+		$this->load->view('visitante/w_footer'); 
 
 	}
 
 	public function quienessomos()
 	{
+		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
+		//var_dump($this->_acceso()); Muestra valores del array.
 		$data['titulo'] =('Quienes Somos - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -56,7 +59,8 @@ class Principal extends CI_Controller {
 
 
 	public function contacto()
-	{
+	{	
+		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Contacto - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -66,6 +70,7 @@ class Principal extends CI_Controller {
 
 	public function terminos()
 	{
+		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Terminos y condiciones - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -75,6 +80,7 @@ class Principal extends CI_Controller {
 
 	public function catalogo()
 	{
+		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Catalogo - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -84,6 +90,7 @@ class Principal extends CI_Controller {
 
 	public function consultas()
 	{
+		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Conaultas - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -93,6 +100,7 @@ class Principal extends CI_Controller {
 
 	public function ingreso()
 	{	
+		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Ingreso de usuario');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion');  
@@ -101,23 +109,35 @@ class Principal extends CI_Controller {
 
 	}
 
-
-
-
-	public function get_usuarios(){
-
-		$query = $this->db->query('SELECT email, nombre, apellido, estado FROM usuarios');
-
-			foreach ($query->result() as $row)
-			{
-				        echo $row->nombre;
-				        echo $row->apellido;
-				        echo $row->email;
-			}
-			echo "<br>";
-
-echo 'Total usuarios: ' . $query->num_rows();
-	}
+	/*
+	+	carga los parametros de sesion a la variable $data.
+	+ @param ninguno 
+	+ @result $dato  array de datos
+	*/
+	public function _acceso()
+	{
+		$session_data = $this->session->userdata('logged_in');
+         
+         $data['nombre'] = $session_data['nombre'];
+         $data['apellido'] = $session_data['apellido'];
+         $data['categoria'] = $session_data['categoria'];
+         if ($this->session->userdata('logged_in')) 
+         {
+         	// si el usuario esta logueado, muestra sus datos de acceso y adas el nombre de usuario.
+         	$data['direccion']= "logout";
+         	$data['accion']= "Salir";
+         	$data['user_logueo']= 'Usuario ' .  $session_data['nombre']. ' '. $session_data['categoria'];
+		 }
+		 else
+		{
+	       	// si el usuario no esta loguedo.
+         	$data['direccion']= "ingreso";
+         	$data['accion']= "Ingresar";
+         	$data['user_logueo']= 'Para compras debe estar logueado';
+			//echo "Usuario: ", $data['nombre'], $data['categoria'];
+        }
+        return $data;
+    }
 }
 
 /* End of file principal.php */

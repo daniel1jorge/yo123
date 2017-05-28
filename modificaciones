@@ -10,5 +10,12 @@ http://localhost:8080/consolas2/usuario_controller/all
 
 
 
+muestra todos los usuarios
+http://localhost:8080/consolas2/usuario_controller/get_all_usuarios
+
+
 funcion usuarios OK.
 insert_usuario()
+
+
+var_dump($a);
