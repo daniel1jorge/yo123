@@ -31,7 +31,17 @@
 					<div class="col-md-4">
 						<p><b><?php echo $user_logueo; ?></b></p>
 
+						<?php 
+							if ($titulo=='Ingreso de usuario') {
+								$activado = FALSE; 
+							}
+						if ($activado ){ ?>
+						    <a class="btn btn-primary" href="<?php echo site_url('usuario'); ?>">Usuario</a>
+						<?php
+						    }
+						?>
 						<a class="btn btn-primary" href="<?php echo site_url($direccion); ?>"> <?php echo $accion; ?></a>
+						<br>
 						<br>
 							
 							

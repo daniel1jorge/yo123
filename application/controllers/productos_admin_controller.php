@@ -1,78 +1,105 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Productos_controller extends CI_Controller {
+session_start();
+class Productos_admin_controller extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('m_productos');
-		$this->load->helper('url');
-		$this->load->library('helper');
-
-		
 
 	}
 
-	/**
-    * Función que verifica si el usuario esta logueado
-    * @access private    
-    */
-    private function _veri_log()
-    {
-    	if ($this->session->userdata('logged_in')) {
-    		return TRUE;
-    	} else {
-    		return FALSE;
-    	}
-    	
-    }
-    /**
+    /**   ####################### Verificar esta funcion
     * Función principal del controlador ejecuta por defecto si no nombramos el metodo.
-    *@access  public
+    * @access  public
     */ 
-	public function index()
-	{
-		if($this->_veri_log())
-        {
-        	$session_data = $this->session->userdata('logged_in');
-            $dat['nombre'] = $session_data['nombre'];    		
-			$data = array(
-			        'productos' => $this->m_productos->get_productos()
-			);
-			// Menu profesor Anulado
-			//$this->load->view('partes/head_views',$dat);
-		$this->load->library('pagination'); //cargamos la libreria de paginacion
-		$this->load->library('table'); //cargamos la libreria para el manejo de tablas
+    public function index()
+    {   
+    	if ($this->session->userdata('logged_in')) {
+	        $session_data = $this->session->userdata('logged_in');
+	        $data['nombre'] = $session_data['nombre'];
+	        $data['apellido'] = $session_data['apellido'];
+	        $data['categoria'] = $session_data['categoria'];
+	        // consuta categoria de usuario
+	        if ($data['categoria'] == 2){
+	            //usuario Administrador
+	            $this->mostrar_productos(get_all_productos());
+	        }else{
+        		// El usuario no es administrador!!!
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	        }
 
-		$config['total_rows'] = $this->m_productos->get_productos_cantidad();  //llamo a una funcion del modelo que me retorna la cantidad de productos que tengo en la tabla.
-        $config['per_page'] = '5'; //cantidad de filas a mostrar por pagina
- 
-        $this->pagination->initialize($config); // le paso el vector con mis configuraciones al paginador
-         
-        //llamo a la funcion get_productos que me retorna el resultado de la consulta SQL con los datos.
-        $data['results'] = $this->m_productos->get_productos($config['per_page'],$this->uri->segment(3));
+	    }else{
+	    	// No logueado
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	    }
+
+    }
+
+    public function mostrar_productos($funcion)
+    {
+    	$session_data = $this->session->userdata('logged_in');
+	        $data['nombre'] = $session_data['nombre'];
+	        $data['apellido'] = $session_data['apellido'];
+	        $data['categoria'] = $session_data['categoria'];
+	  	$this->load->view('adminlte/admin_header.php');
+	    $this->load->view('adminlte/admin_header2', $data);
+	    $this->load->view('adminlte/admin_asider', $data);
+	    //var_dump($this->all_categorias());
+	    $this->$funcion(); // muestra todos los procuctos.
+	    $this->load->view('adminlte/admin_foother');
+	}
+            
+    public function get_all_productos()
+    {	
+       	$data['lista_productos'] = $this->m_productos->get_productos();
+        $this->load->view('adminlte/admin_all_productos', $data);
+       
+    }
+
+    public function get_all_categorias()
+    {	
+       	$data['lista_categorias'] = $this->m_productos->get_categorias();
+        $this->load->view('adminlte/admin_all_categorias', $data);
+       
+    }
+    //////////////////////////////////////////////////       /// Verificar falla 
+	function cant_productos()
+            {
+                //$val=$this->m_productos->get_produ_activos();
+                //return $val;
+                return 5;
+
+            }
+	///////////////////////////////////////////////////////////////////////////////////
+
+     /* debuelve las caterias en un arreglo  */
+ 	function all_categorias()
+ 	{
+ 		 
+ 		return $this->m_productos->solo_categorias();
+
+ 	}
+
+ 	function form_insert_producto()
+    {
+    	//var_dump(all_categorias());
+ 		//$data['cate_dropdown'] =
+ 		$data['select_categorias'] = $this->all_categorias();
+ 		//$datos['arrCategorias'] = $this->m_productos->solo_categorias(); 
+ 		//$data['salaries'] = $this->m_productos->solo_categorias();
+        $this->load->view('adminlte/admin_insert_product.php',$data);
+        
+    }
+
+    function form_insert_categoria()
+    {
+        $this->load->view('adminlte/admin_insert_categoria.php');
+        
+    }
    
-        //obtengo los productos ordenados descendientemente por el id
-        //$data['productos'] = $this->m_productos->get_productos_desc('id'); 
- 
-        //$this->load->view('usuario_index',$data); //cargo la vista usuario_index y le paso el vector
-         	
-         	// Muestra la tabla de productos.
-			$this->load->view('back/producto/producto_views',$data);//array_merge($data,$dat));
-			//$this->load->view('partes/footer_views');
-		}else{
-			redirect('ingreso', 'refresh');
-		}
-	}
+   	/*
 
-
-	/*
-	public function index(){
-          $this->load->view('constant');
-          $this->load->view('view_header');
-          $data['productos'] = $this->m_productos->ListarProductos();
-          $this->load->view('productos/view_productos', $data);
-          $this->load->view('view_footer');
-	}
-    
         
 	public function deleteproducto(){
 		$url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];

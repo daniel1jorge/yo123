@@ -6,7 +6,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url(); ?>assets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url(); ?>assets/img/admin-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo ucfirst($nombre) ?> <?php echo ucfirst($apellido) ?></p>
@@ -31,11 +31,12 @@
       <ul class="sidebar-menu">
         <li class="header">Operaciones</li>
         <!-- Optionally, you can add icons to the links -->
-        
+        <li><a href="<?php echo base_url(); ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Principal</span>
+        </li>
         <!-- usuarios -->
         <li class="active treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Usuarios</span>
+            <i class="fa fa-users"></i> <span>Usuarios</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -50,14 +51,14 @@
    
         <!-- Productos -->
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Productos</span>
+          <a href="#"><i class="fa fa-barcode"></i> <span>Productos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Listar Todos</a></li>
-            <li><a href="#">Categorias</a></li>
+            <li><a href="<?php echo base_url('productos'); ?>">Listar Todos</a></li>
+            <li><a href="<?php echo base_url('categorias'); ?>">Categorias</a></li>
             <li><a href="#">Categorias</a></li>
           </ul>
         </li>

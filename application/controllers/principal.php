@@ -37,6 +37,7 @@ class Principal extends CI_Controller {
 	{
 		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		//echo "Usuario: ", $data['nombre'], $data['categoria'];
+		$data['activado']= $this->activa_boton();
 		$data['titulo'] =('Principal - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion');
@@ -50,6 +51,7 @@ class Principal extends CI_Controller {
 	{
 		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		//var_dump($this->_acceso()); Muestra valores del array.
+		$data['activado']= $this->activa_boton();
 		$data['titulo'] =('Quienes Somos - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -61,6 +63,7 @@ class Principal extends CI_Controller {
 	public function contacto()
 	{	
 		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
+		$data['activado']= $this->activa_boton();
 		$data['titulo'] =('Contacto - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -71,6 +74,7 @@ class Principal extends CI_Controller {
 	public function terminos()
 	{
 		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
+		$data['activado']= $this->activa_boton();
 		$data['titulo'] =('Terminos y condiciones - Venta de Consolas y juegos');
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
@@ -82,6 +86,7 @@ class Principal extends CI_Controller {
 	{
 		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Catalogo - Venta de Consolas y juegos');
+		$data['activado']= $this->activa_boton();
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
 		$this->load->view('visitante/w_catalogo'); 
@@ -89,9 +94,10 @@ class Principal extends CI_Controller {
 	}
 
 	public function consultas()
-	{
+	{	
 		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Conaultas - Venta de Consolas y juegos');
+		$data['activado']= $this->activa_boton();
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion'); 
 		$this->load->view('visitante/w_consultas');  
@@ -99,9 +105,10 @@ class Principal extends CI_Controller {
 	}
 
 	public function ingreso()
-	{	
+	{		
 		$data = $this->_acceso(); //llama a la funcion que obtengo los valores de las variables.
 		$data['titulo'] =('Ingreso de usuario');
+		$data['activado']= $this->activa_boton();
 		$this->load->view('visitante/w_header', $data);
 		$this->load->view('visitante/w_navegacion');  
 		$this->load->view('ingreso');
@@ -118,6 +125,7 @@ class Principal extends CI_Controller {
 	{
 		$session_data = $this->session->userdata('logged_in');
          
+         $data['id_admin'] = $session_data['id'];
          $data['nombre'] = $session_data['nombre'];
          $data['apellido'] = $session_data['apellido'];
          $data['categoria'] = $session_data['categoria'];
@@ -138,6 +146,18 @@ class Principal extends CI_Controller {
         }
         return $data;
     }
+
+	// Verifica si usuario esta loguedo para mostrar el moton de usuario
+	// Return Bolean Retorna estorna True o False
+    public function activa_boton()
+	{
+		if ($this->session->userdata('logged_in')) { 
+			$result = TRUE;
+		}else{
+			$result = FALSE;
+		}
+		return $result;
+	}
 }
 
 /* End of file principal.php */

@@ -125,9 +125,22 @@ Class M_usuario extends CI_Model
         return $query;
 
     }
-
+    
+    
+    // Todos los usuarios Numero de todos los usuarios.
+    public function get_usuarios_cantidad()
+    {   
+        //$this->db->select_sum('id');
+        //$suma= $this->db->get('usuarios')->row();
+        //return $suma->id;
+        $query = $this->db->query('SELECT * FROM usuarios');
+        return $query->num_rows(); 
+        //return $this->db->query('select count(*)');
+        //$query = $this->db->get_where('usuarios', query('select count(*)'),1);
+        
+    }
+    
     /*
-
     function get_categoria(){
         $data = array();
         $data['']='Seleccione una opción';
