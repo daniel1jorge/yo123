@@ -3,6 +3,9 @@ class M_productos extends CI_Model {
 	function __construct()
      {
           parent::__construct();
+          $this->load->library('image_lib');
+          $this->load->model('m_productos');
+
      }
 
      /**

@@ -21,14 +21,9 @@ class Productos_admin_controller extends CI_Controller {
 	        // consuta categoria de usuario
 	        if ($data['categoria'] == 2){
 	            //usuario Administrador
-	            $this->load->view('adminlte/admin_header.php');
-			    $this->load->view('adminlte/admin_header2', $data);
-			    $this->load->view('adminlte/admin_asider', $data);
-		       	$data['lista_productos'] = $this->m_productos->get_productos();
-		        $this->load->view('adminlte/admin_all_productos', $data);
-			    //var_dump($this->all_categorias());
-			    //$this->$funcion(); // muestra todos los procuctos.
-			    $this->load->view('adminlte/admin_foother');
+
+
+	            $this->mostrar_productos(get_all_productos());
 	        }else{
         		// El usuario no es administrador!!!
             	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
@@ -42,17 +37,32 @@ class Productos_admin_controller extends CI_Controller {
 	    }
 
     }
-        
+
+    public function mostrar_productos($funcion)
+    {
+    	$session_data = $this->session->userdata('logged_in');
+	        $data['nombre'] = $session_data['nombre'];
+	        $data['apellido'] = $session_data['apellido'];
+	        $data['categoria'] = $session_data['categoria'];
+	  	$this->load->view('adminlte/admin_header.php');
+	    $this->load->view('adminlte/admin_header2', $data);
+	    $this->load->view('adminlte/admin_asider', $data);
+       	$data['lista_productos'] = $this->m_productos->get_productos();
+        $this->load->view('adminlte/admin_all_productos', $data);
+	    //var_dump($this->all_categorias());
+	    $this->$funcion(); // muestra la funcion procuctos.
+	    $this->load->view('adminlte/admin_foother');
+	}
+            
+    public function get_all_productos()
+    {	
+       
+    }
+
     public function get_all_categorias()
     {	
-    		    $this->load->view('adminlte/admin_header.php');
-			    $this->load->view('adminlte/admin_header2', $data);
-			    $this->load->view('adminlte/admin_asider', $data);
-	    	   	$data['lista_categorias'] = $this->m_productos->get_categorias();
-    	    	$this->load->view('adminlte/admin_all_categorias', $data);
-			    //var_dump($this->all_categorias());
-			    //$this->$funcion(); // muestra todos los procuctos.
-			    $this->load->view('adminlte/admin_foother');
+       	$data['lista_categorias'] = $this->m_productos->get_categorias();
+        $this->load->view('adminlte/admin_all_categorias', $data);
        
     }
     //////////////////////////////////////////////////       /// Verificar falla 

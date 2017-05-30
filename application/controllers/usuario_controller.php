@@ -18,6 +18,7 @@
                 function __construct() {
                     parent::__construct();
                     $this->load->model('m_usuario');
+                    $this->load->model('m_productos');
                 }
 
                 /**   ####################### Verificar esta funcion
