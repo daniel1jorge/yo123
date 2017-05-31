@@ -35,7 +35,7 @@
 					<tr>
 						<td><?php echo $row->producto_id;  ?></td>
 						<td><?php echo $row->nombre;  ?></td>
-						<td><?php echo $row->categoria_id;  ?></td>
+						<td><?php echo $row->categoria;  ?></td>
 						<td><?php echo $row->imagen;  ?></td>
 						<td><?php echo $row->precio;  ?></td>
 						<td><?php echo $row->stock;  ?></td>

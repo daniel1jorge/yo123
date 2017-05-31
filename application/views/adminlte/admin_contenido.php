@@ -31,14 +31,14 @@
         <div class="col-lg-3 col-xs-6">
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3><?php echo $cant_pro_act; ?></h3>
+              <h3><?php echo $cant_prduc_act; ?></h3>
 
-              <p>New Orders</p>
+              <p>Productos activos </p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo $cant_prduc_act; ?>" class="small-box-footer">Ver Productos<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

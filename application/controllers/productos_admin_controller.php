@@ -13,7 +13,7 @@ class Productos_admin_controller extends CI_Controller {
     */ 
     public function index()
     {   
-    	if ($this->session->userdata('logged_in')) {
+    	if ($this->_veri_log()) {
 	        $session_data = $this->session->userdata('logged_in');
 	        $data['nombre'] = $session_data['nombre'];
 	        $data['apellido'] = $session_data['apellido'];
@@ -23,7 +23,6 @@ class Productos_admin_controller extends CI_Controller {
 	            //usuario Administrador
 
 
-	            $this->mostrar_productos(get_all_productos());
 	        }else{
         		// El usuario no es administrador!!!
             	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
@@ -38,69 +37,203 @@ class Productos_admin_controller extends CI_Controller {
 
     }
 
-    public function mostrar_productos($funcion)
-    {
-    	$session_data = $this->session->userdata('logged_in');
-	        $data['nombre'] = $session_data['nombre'];
-	        $data['apellido'] = $session_data['apellido'];
-	        $data['categoria'] = $session_data['categoria'];
-	  	$this->load->view('adminlte/admin_header.php');
-	    $this->load->view('adminlte/admin_header2', $data);
-	    $this->load->view('adminlte/admin_asider', $data);
-       	$data['lista_productos'] = $this->m_productos->get_productos();
-        $this->load->view('adminlte/admin_all_productos', $data);
-	    //var_dump($this->all_categorias());
-	    $this->$funcion(); // muestra la funcion procuctos.
-	    $this->load->view('adminlte/admin_foother');
-	}
+    /**
+            * Función que verifica si el usuario esta logueado
+            * @access private    
+            */
+            private function _veri_log()
+            {
+                if ($this->session->userdata('logged_in')) {
+                    return TRUE;
+                } else {
+                    return FALSE;
+                }
+                
+            }
+
             
     public function get_all_productos()
     {	
-       
-    }
+    	if ($this->_veri_log()) {
+    		$session_data = $this->session->userdata('logged_in');
+	        $data['nombre'] = $session_data['nombre'];
+	        $data['apellido'] = $session_data['apellido'];
+	        $data['categoria'] = $session_data['categoria'];
+	        // consuta categoria de usuario
+	        if ($data['categoria'] == 2){
+	            //usuario Administrador
+			    $this->load->view('adminlte/admin_header.php');
+			    $this->load->view('adminlte/admin_header2', $data);
+			    $this->load->view('adminlte/admin_asider', $data);
+			    $data['lista_productos'] = $this->m_productos->get_productos();
+			    $this->load->view('adminlte/admin_all_productos', $data);
+			    $this->load->view('adminlte/admin_foother');
 
-    public function get_all_categorias()
+	        }else{
+        		// El usuario no es administrador!!!
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	        }
+
+	    }else{
+	    	// No logueado
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	    }
+	}
+
+	public function get_all_categorias()
     {	
-       	$data['lista_categorias'] = $this->m_productos->get_categorias();
-        $this->load->view('adminlte/admin_all_categorias', $data);
-       
-    }
-    //////////////////////////////////////////////////       /// Verificar falla 
-	function cant_productos()
-            {
-                //$val=$this->m_productos->get_produ_activos();
-                //return $val;
-                return 5;
+    	if ($this->_veri_log()) {
+    		$session_data = $this->session->userdata('logged_in');
+	        $data['nombre'] = $session_data['nombre'];
+	        $data['apellido'] = $session_data['apellido'];
+	        $data['categoria'] = $session_data['categoria'];
+	        // consuta categoria de usuario
+	        if ($data['categoria'] == 2){
+	            //usuario Administrador
+			    $this->load->view('adminlte/admin_header.php');
+			    $this->load->view('adminlte/admin_header2', $data);
+			    $this->load->view('adminlte/admin_asider', $data);
+			    $data['lista_categorias'] = $this->m_productos->get_categorias();
+        		$this->load->view('adminlte/admin_all_categorias', $data);
+			    $this->load->view('adminlte/admin_foother');
 
-            }
-	///////////////////////////////////////////////////////////////////////////////////
+	        }else{
+        		// El usuario no es administrador!!!
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	        }
+
+	    }else{
+	    	// No logueado
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	    }
+	}
+
 
      /* debuelve las caterias en un arreglo  */
- 	function all_categorias()
- 	{
- 		 
- 		return $this->m_productos->solo_categorias();
+	public function all_categorias()
+    {	
+    	if ($this->_veri_log()) {
+    		$session_data = $this->session->userdata('logged_in');
+	        $data['categoria'] = $session_data['categoria'];
+	        // consuta categoria de usuario
+	        if ($data['categoria'] == 2){
+    		    //usuario Administrador
+			    return $this->m_productos->solo_categorias();
+	        }
+	    }
+	}
 
- 	}
-
- 	function form_insert_producto()
-    {
-    	//var_dump(all_categorias());
- 		//$data['cate_dropdown'] =
- 		$data['select_categorias'] = $this->all_categorias();
- 		//$datos['arrCategorias'] = $this->m_productos->solo_categorias(); 
- 		//$data['salaries'] = $this->m_productos->solo_categorias();
-        $this->load->view('adminlte/admin_insert_product.php',$data);
+	public function form_insert_producto()
+    {	
+    	if ($this->_veri_log()) {
+    		$session_data = $this->session->userdata('logged_in');
+	        $data['nombre'] = $session_data['nombre'];
+	        $data['apellido'] = $session_data['apellido'];
+	        $data['categoria'] = $session_data['categoria'];
+	        // consuta categoria de usuario
+	        if ($data['categoria'] == 2){
+	            //usuario Administrador
+			    $this->load->view('adminlte/admin_header.php');
+			    $this->load->view('adminlte/admin_header2', $data);
+			    $this->load->view('adminlte/admin_asider', $data);
+        		$data['select_categorias'] = $this->all_categorias();  // busca en el metodo un arreglo de categorias.
+        		$this->load->view('adminlte/admin_insert_product.php',$data);
         
-    }
+			    $this->load->view('adminlte/admin_foother');
+
+	        }else{
+        		// El usuario no es administrador!!!
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	        }
+
+	    }else{
+	    	// No logueado
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	    }
+	}
 
     function form_insert_categoria()
-    {
-        $this->load->view('adminlte/admin_insert_categoria.php');
-        
+    {	
+    	if ($this->_veri_log()) {
+    		$session_data = $this->session->userdata('logged_in');
+	        $data['nombre'] = $session_data['nombre'];
+	        $data['apellido'] = $session_data['apellido'];
+	        $data['categoria'] = $session_data['categoria'];
+	        // consuta categoria de usuario
+	        if ($data['categoria'] == 2){
+	            //usuario Administrador
+			    $this->load->view('adminlte/admin_header.php');
+			    $this->load->view('adminlte/admin_header2', $data);
+			    $this->load->view('adminlte/admin_asider', $data);
+        		$this->load->view('adminlte/admin_insert_categoria.php');
+			    $this->load->view('adminlte/admin_foother');
+
+	        }else{
+        		// El usuario no es administrador!!!
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	        }
+
+	    }else{
+	    	// No logueado
+            	$this->session->set_flashdata('correcto', '<div class="alert alert-danger">No posee acceso a esta area!</div>');
+            	redirect('ingreso', 'Location');
+	    }
+	}
+
+
+###############################################################################################################3
+
+    public function agregar_categoria(){
+        $this->form_validation->set_rules('categoria', 'Categoria', 'trim|required|callback__rolekey_exists');
+		$this->form_validation->set_message('required','<div class="alert alert-danger">¡Campo requerido!</div>');
+		if ($this->form_validation->run() == TRUE)
+            {
+            	$this->session->set_flashdata('correcto', ' <br><div class="alert alert-success">Categoria cargada correctamente!</div> <br>');
+                       	redirect('categorias','Location');
+		            // si no cumple algunas de las 2 condiciones 
+        }else{
+	             $this->session->set_flashdata('correcto', '<br><div class="alert alert-danger">La Categoria no fue cargada!</div>');
+                redirect('categorias','Location');
+            
+  		}
+    	
     }
-   
+
+
+    function _rolekey_exists($key) {
+
+        if (!$this->m_productos->categria_exists($key)) {
+            // creo arreglo con datos recibidos del post.
+            $data = array(
+                        'categoria'=>$this->input->post('categoria',true)
+                         );
+                    //Envio array el metodo insert para registro de datos
+            $datos_categoria = $this->m_productos->create_categoria($data);                         
+            return TRUE;
+		}else{
+			$this->form_validation->set_message('_rolekey_exists', '<br><div class="alert alert-danger">Categoria ya existente!!!</div>');
+            return FALSE;
+
+        }  
+    }
+
+                
+
+
+
+
+
+
    	/*
+
+
 
         
 	public function deleteproducto(){

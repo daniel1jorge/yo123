@@ -3,6 +3,7 @@ class M_productos extends CI_Model {
 	function __construct()
      {
           parent::__construct();
+
      }
 
      /**
@@ -12,15 +13,34 @@ class M_productos extends CI_Model {
     * @param   No recibe
     * @return  array
     */
-     function get_productos()
-    {
-        $query = $this->db->get("productos");
+     function get_productos(){
         
-        if($query->num_rows()>0) {
+        $this->db->select('productos.*,categoria');
+        $this->db->from('productos');
+        $this->db->join('categorias', 'productos.categoria_id = categorias.categoria_id');
+        
+        $query = $this->db->get();
+        if ($query->num_rows()>0) {
             return $query;
-        } else {
+            
+        }else{
             return FALSE;
-        }        
+        }
+
+
+    }
+
+    // Verifica si existe categoria
+    public function categria_exists($key)
+    {
+        $this->db->where('categoria',$key);
+        $query = $this->db->get('categorias');
+        if ($query->num_rows() > 0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
     }
 
       /**
@@ -48,41 +68,15 @@ class M_productos extends CI_Model {
     */
      function solo_categorias()
     {
-        /*$sql = "select categoria from categorias";
-        $res = $this->db->query($sql);
-        if($res->num_rows() > 0){
-            return $res->result_array();
-        }else{
-            return false;
-        }*/
-/*
-        $this->db->select('categoria');
         $this->db->from('categorias');
-        $query = $this->db->get();
-        return $query->result_array();
-*/
-    //     $this->db->from($this->categorias);
-    // $this->db->order_by('categoria_id');
-    // $result = $this->db->get();
-    // $return = array();
-    // if($result->num_rows() > 0){
-    //         $return[''] = 'please select';
-    //     foreach($result->result_array() as $row){
-    //         $return[$row['categoria_id']] = $row['categoria'];
-    //     }
-    // }
-    // return $return;
-
-       
-    $this->db->from('categorias');
-    $result = $this->db->get();
-    $return = array();
-    if($result->num_rows() > 0){
-        foreach($result->result_array() as $row){
-            $return[$row['categoria_id']] = $row['categoria'];
+        $result = $this->db->get();
+        $return = array();
+        if($result->num_rows() > 0){
+            foreach($result->result_array() as $row){
+                $return[$row['categoria_id']] = $row['categoria'];
+            }
         }
-    }
-    return $return;
+        return $return;
 
     }
 
@@ -98,7 +92,8 @@ class M_productos extends CI_Model {
     function get_produ_activos()
     {
         
-        return $this->db->count_all('productos');
+        $query = $this->db->query('SELECT * FROM productos WHERE activo=1 and stock>0');
+        return $query->num_rows(); 
     }
 
      /* dado  un campo existente en la bd retorna todos los datos del usuario ordenados desc por ese campo */
@@ -148,6 +143,18 @@ class M_productos extends CI_Model {
     public function create_producto($data){
         $this->db->insert('productos', $data);
     }
+
+     /**
+    * Inserta todos los datos de un producto
+    *
+    * @access  public
+    * @param   array
+    * @return  boolean
+    */
+    public function create_categoria($data){
+        $this->db->insert('categorias', $data);
+    }
+
     /**
     * Retorna todos los datos de un producto
     *

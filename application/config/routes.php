@@ -53,14 +53,14 @@ $route['get_usuarios'] = "usuario_controller/mostrar_usuarios/get_all_usuarios";
 $route['get_admin'] = "usuario_controller/mostrar_usuarios/get_all_admin";
 $route['get_desabilitados'] = "usuario_controller/mostrar_usuarios/get_all_desabilitados";
 
-// productos
-$route['productos'] = "productos_admin_controller/mostrar_productos/get_all_productos";
-$route['pro_edit'] = "productos_admin_controller/mostrar_productos/get_all_productos";
-$route['insert_producto'] = "productos_admin_controller/mostrar_productos/form_insert_producto";
+// // productos
+$route['productos'] = "productos_admin_controller/get_all_productos";
+$route['insert_producto'] = "productos_admin_controller/form_insert_producto";
+// $route['pro_edit'] = "productos_admin_controller/mostrar_productos/get_all_productos";
 
-$route['categorias'] = "productos_admin_controller/mostrar_productos/get_all_categorias";
-$route['cat_edit'] = "productos_admin_controller/mostrar_productos/get_all_productos";
-$route['insert_cat'] = "productos_admin_controller/mostrar_productos/get_all_productos";
+$route['categorias'] = "productos_admin_controller/get_all_categorias";
+$route['insert_cat'] = "productos_admin_controller/form_insert_categoria";
+// $route['cat_edit'] = "productos_admin_controller/mostrar_productos/get_all_productos";
 
 // Verifico user  y pass
 //$route['verifico'] = "verifico_controller";

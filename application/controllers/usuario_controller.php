@@ -33,10 +33,11 @@
                  $data['apellido'] = $session_data['apellido'];
                  $data['categoria'] = $session_data['categoria'];
                    // consuta categoria de usuario
-                     if ($data['categoria'] == 2){
+                     if ($data['categoria'] == 2){ //verifica que sea administrador
                         //usuario Administrador
                         
                         $contenido['cant_usuarios'] = $this->cant_usuarios();
+                        $contenido['cant_prduc_act'] = $this->m_productos->get_produ_activos();
                         
                         //$categoria['cant_productos'] = $this->cant_productos();
                         $this->load->view('adminlte/admin_header.php');
